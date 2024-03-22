@@ -1,3 +1,4 @@
+from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render
 from django.views import View
 from django.http import JsonResponse
@@ -5,12 +6,26 @@ import json
 from django.contrib.auth.models import User
 from validate_email import validate_email
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
 # Create your views here.
 
 
 class  LoginView(View):
     
     def get(self, request):
+        return render(request, 'authentication/login.html')
+    
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        if username and password:
+            user = authenticate(request,username=username,password=password)
+            
+            if user:
+                 login(request, user)
+                 return redirect('dashboard')
+        messages.error(request,f'Invalid username or password')     
         return render(request, 'authentication/login.html')
     
 # validate username if exists
@@ -75,6 +90,16 @@ class  RegisterView(View):
                 
                 user = User.objects.create(username=username, email=email)
                 user.set_password(password)
+                # user.is_active = False
+                # email_subject = "Activate your account"
+                # email_body = "Test email"
+                # email = EmailMessage(
+                #         email_subject,
+                #         email_body,
+                #         "noreply@gmail.com",
+                #         [email]
+                #         )
+                # email.send(fail_silently=False)
                 user.save()
                 
                 return redirect("login")
