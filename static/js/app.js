@@ -1,5 +1,5 @@
-const usernameField = document.querySelector("#username");
-const errorBox = document.querySelector("#error_box");
+const usernameField = document.getElementById("username");
+const errorBox = document.getElementById("error_box");
 
 usernameField.addEventListener("keyup", (e) => {
   const usernameValue = e.target.value;
