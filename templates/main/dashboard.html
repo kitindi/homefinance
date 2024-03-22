@@ -106,7 +106,7 @@
             </svg>
           </button>
 
-          <div class="hs-dropdown relative inline-flex" data-hs-dropdown-placement="bottom-right">
+          <div class="hs-dropdown relative inline-flex items-center" data-hs-dropdown-placement="bottom-right">
             <button
               id="hs-dropdown-with-header"
               type="button"
@@ -118,6 +118,9 @@
                 alt="Image Description"
               />
             </button>
+            <div class="ml-5">
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
 
             <div
               class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 z-10 bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700"

@@ -6,7 +6,7 @@ import json
 from django.contrib.auth.models import User
 from validate_email import validate_email
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 # Create your views here.
 
 
@@ -25,7 +25,7 @@ class  LoginView(View):
             if user:
                  login(request, user)
                  return redirect('dashboard')
-        messages.error(request,f'Invalid username or password')     
+        messages.error(request,f'Invalid username or password')   
         return render(request, 'authentication/login.html')
     
 # validate username if exists
@@ -108,3 +108,10 @@ class  RegisterView(View):
         return render(request, 'authentication/register.html')
     
 
+# logout user
+
+class Logoutview(View):
+    def get(self, request):
+        logout(request)
+        
+        return redirect("login")
