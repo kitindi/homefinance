@@ -17,6 +17,7 @@ usernameField.addEventListener("keyup", (e) => {
           errorBox.innerHTML = `<p class=" text-xs text-red-600 mt-2" id="username-error">${data.username_error}</p>`;
         } else {
           errorBox.innerHTML = '<p class="hidden text-xs text-red-600 mt-2" id="username-error"></p>';
+          submitButton.removeAttribute("disabled");
         }
       });
   }
@@ -34,6 +35,7 @@ emailField.addEventListener("keyup", (e) => {
           emailBox.innerHTML = `<p class=" text-xs text-red-600 mt-2" id="username-error">${data.email_error}</p>`;
         } else {
           emailBox.innerHTML = '<p class="hidden text-xs text-red-600 mt-2" id="username-error">/p>';
+          submitButton.removeAttribute("disabled");
         }
       });
   }
