@@ -1,15 +1,13 @@
 {% extends "main/base.html" %} {% block content %}
 
-<main class="bg-gray-50 dark:bg-slate-900">
+<main class="bg-gray-100 dark:bg-slate-900">
   <!-- ========== MAIN CONTENT ========== -->
   <!-- Sidebar Toggle -->
   {% include "main/sidebar.html" %}
   <!-- End Sidebar -->
   <!-- ========== HEADER ========== -->
-  <header
-    class="flex flex-wrap px-16 sm:justify-start sm:flex-nowrap z-50 max-w-7xl mx-auto bg-white border-b text-sm py-2.5 sm:py-4 dark:bg-slate-900 dark:border-gray-700"
-  >
-    <nav class="w-full flex basis-full items-center mx-auto px-4 sm:px-6 lg:px-8" aria-label="Global">
+  <header class="w-full px-16 sm:flex-nowrap z-50 bg-white border-b text-sm py-2.5 sm:py-4 dark:bg-slate-900 dark:border-gray-700">
+    <nav class="w-full flex basis-full items-center mx-auto px-4 sm:pr-6 sm:pl-60" aria-label="Global">
       <div class="w-full flex items-center justify-end ms-auto sm:justify-between sm:gap-x-3 sm:order-3">
         <div class="sm:hidden">
           <button
@@ -36,7 +34,7 @@
 
         <div class="hidden sm:block">
           <label for="icon" class="sr-only">Search</label>
-          <div class="relative">
+          <div class="relative w-[400px]">
             <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
               <svg
                 class="flex-shrink-0 size-4 text-gray-500"
@@ -58,7 +56,7 @@
               type="text"
               id="icon"
               name="icon"
-              class="py-2 pe-4 ps-10 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+              class="py-2 pe-4 ps-10 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
               placeholder="Search"
             />
           </div>
@@ -228,7 +226,185 @@
   </header>
   <!-- ========== END HEADER ========== -->
   <!-- Content -->
-  <div class="w-full pt-5 px-4 sm:px-6 md:px-8 lg:ps-72"></div>
+  <div class="w-full pt-5 px-16 sm:px-20 md:px-16 lg:ps-72 min-h-screen">
+    <div class="px-6 container grid grid-cols-12 mt-2 py-2 gap-3">
+      <div class="col-span-8"><h2 class="text-[18px] font-medium text-slate-700">Overview</h2></div>
+      <div class="col-span-4 px-6"> 
+        <h3 class="text-[18px] text-slate-700 font-medium">Expenses Breakdown</h3>
+      </div>
+      
+    </div>
+    <div class="px-6 container grid grid-cols-12 mt-2 py-2 gap-3">
+      <div class="col-span-8">
+        {% comment %} card- 1 {% endcomment %}
+        <div class="grid grid-cols-12 gap-5">
+          <div class="col-span-4 bg-white p-4 rounded-lg">
+            <div class="flex justify-between">
+              <h3 class="flex flex-col">
+                <span class="text-[16px] font-medium pb-2">Total Expenses</span><span class="text-sm text-slate-500">March, 2024</span>
+              </h3>
+              <div class="w-8 h-8 flex justify-center items-center bg-green-300 rounded-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                  <path
+                    d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div class="py-4">
+              <p class="text-[18px] font-bold text-slate-700">Tsh 500,000</p>
+            </div>
+          </div>
+          <div class="col-span-4 bg-white p-4 rounded-lg">
+            <div class="flex justify-between">
+              <h3 class="flex flex-col">
+                <span class="text-[16px] font-medium pb-2">Total Budget</span><span class="text-sm text-slate-500">March, 2024</span>
+              </h3>
+              <div class="w-8 h-8 flex justify-center items-center bg-green-300 rounded-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                  <path
+                    d="M216,40H40A16,16,0,0,0,24,56V192a16,16,0,0,0,16,16H56v16a8,8,0,0,0,16,0V208H184v16a8,8,0,0,0,16,0V208h16a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,152H40V56H216v64H199.32a48,48,0,1,0,0,16H216v56Zm-50.16-72a16,16,0,1,0,0,16H183a32,32,0,1,1,0-16Z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div class="py-4">
+              <p class="text-[18px] font-bold text-slate-700">Tsh 500,000</p>
+            </div>
+          </div>
+          <div class="col-span-4 bg-white p-4 rounded-lg">
+            <div class="flex justify-between">
+              <h3 class="flex flex-col">
+                <span class="text-[16px] font-medium pb-2">Expense Analysis</span><span class="text-sm text-slate-500">March, 2024</span>
+              </h3>
+              <div class="w-8 h-8 flex justify-center items-center bg-green-300 rounded-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                  <path
+                    d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div class="py-4">
+              <p class="text-[18px] font-bold text-slate-700">Tsh 500,000</p>
+            </div>
+          </div>
+        </div>
+        {% comment %} card-2 {% endcomment %}
+        <div class="bg-white p-5 rounded-lg mt-4">bar graph here</div>
+        {% comment %} card-3 {% endcomment %}
+        <div class="bg-white p-5 rounded-lg my-4">
+          <h3 class="text-[18px] text-slate-700 font-medium">Recent Activities</h3>
+          <div>
+            <!-- Table -->
+          <table class="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4">
+            <thead class="bg-gray-50 dark:bg-slate-800">
+              
+
+                <th  class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Item Name
+                    </span>
+                  </div>
+                </th>
+
+               
+
+                <th  class="px-6 py-3 text-start">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase  text-gray-800 dark:text-gray-200">
+                      price
+                    </span>
+                  </div>
+                </th>
+
+                <th  class="px-6 py-3 text-start">
+                  <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Date bought
+                    </span>
+                  </div>
+                </th>
+
+                <th  class="px-6 py-3 text-end"></th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+               
+                <td class="size-px whitespace-nowrap">
+                  <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                    <div class="flex items-center gap-x-3">
+                            
+                        <span class="block text-sm text-gray-500">christina@site.com</span>
+                      
+                    </div>
+                  </div>
+                </td>
+                
+               
+                <td class="size-px whitespace-nowrap">
+                  <div class="px-6 py-3">
+                    <div class="flex items-center gap-x-3">
+                      <span class="text-xs text-gray-500">1/5</span>
+                      
+                    </div>
+                  </div>
+                </td>
+                <td class="size-px whitespace-nowrap">
+                  <div class="px-6 py-3">
+                    <span class="text-sm text-gray-500">28 Dec, 12:12</span>
+                  </div>
+                </td>
+                <td class="size-px whitespace-nowrap">
+                  <div class="px-6 py-1.5">
+                    <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
+                      Edit
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- End Table -->
+
+          <!-- Footer -->
+          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                <span class="font-semibold text-gray-800 dark:text-gray-200">6</span> results
+              </p>
+            </div>
+
+            <div>
+              <div class="inline-flex gap-x-2">
+                <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                  <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  Prev
+                </button>
+
+                <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                  Next
+                  <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- End Footer -->
+          </div>
+        </div>
+      </div>
+      {% comment %} right column {% endcomment %}
+      <div class="col-span-4 px-6">
+       
+        <div class="bg-white p-4 rounded-lg ">
+          pie graph here</div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- End Content -->
   <!-- ========== END MAIN CONTENT ========== -->
 </main>
