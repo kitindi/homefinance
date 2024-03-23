@@ -24,12 +24,13 @@ def preferences(request):
     
     if exists:
         user_preferences = Userpreference.objects.get(user = request.user) 
+        print(user_preferences)
     
      
  
     if request.method == 'GET':
        
-        return render(request, "main/preferences.html",{"currencies":currencyData})
+        return render(request, "main/preferences.html",{"currencies":currencyData,'user_preferences':user_preferences.currency})
     
     else:
         currency = request.POST['currency']
