@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Expense(models.Model):
     
-    EXPENSE_CATEGORY = (('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'))
+    EXPENSE_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'))
     amount = models.FloatField()
     merchant = models.CharField(max_length=255, null=True)
     category = models.CharField(max_length=255, choices=EXPENSE_CATEGORY)
