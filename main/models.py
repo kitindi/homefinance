@@ -5,12 +5,13 @@ from django.contrib.auth.models import User
 
 class Expense(models.Model):
     
-    EXPENSE_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'))
+    EXPENSE_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'),("Others", 'Others'))
+    PAYMENT_METHOD = (('Cash', 'Cash'),('Credit card', 'Credit card'),('Debit card', 'Debit card'),('Bank transfer', 'Bank transfer'),('Mobile money', 'Mobile money'))
     amount = models.FloatField()
     merchant = models.CharField(max_length=255, null=True)
-    category = models.CharField(max_length=255, choices=EXPENSE_CATEGORY)
+    category = models.CharField(max_length=255, choices=EXPENSE_CATEGORY, null=True)
     date = models.DateField(default =now)
-    payment_method = models.CharField(max_length=255, null=True)
+    payment_method = models.CharField(max_length=255, choices=PAYMENT_METHOD, null=True)
     description = models.TextField()
     updated_at = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

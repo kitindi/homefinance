@@ -236,50 +236,20 @@
         <!-- Card -->
         <div class="bg-white rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900">
           <div class="text-center mb-8">
-            <h2 class="text-xl md:text-xl font-bold text-gray-800 dark:text-gray-200">Create New Expense</h2>
+            <h2 class="text-xl md:text-xl font-bold text-gray-800 dark:text-gray-200">Edit Expense</h2>
           </div>
 
-          <form method="POST">
+          <form method="POST" action="">
             {% csrf_token %}
             <!-- Section -->
             <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
               <label for="af-payment-billing-address" class="inline-block text-sm font-medium dark:text-white"> Expense details </label>
 
               <div class="mt-2 space-y-3">
-                <div class="grid sm:flex gap-8">
-                  <input
-                    type="text"
-                    name="amount"
-                    class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    placeholder="Amount"
-                  />
-                  <input
-                    type="text"
-                    name="merchant"
-                    class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    placeholder="Merchant"
-                  />
-                </div>
-                <div class="grid sm:flex gap-3">
-                  <select
-                    name="category"
-                    class="py-2 px-3 pe-9 block w-[400px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                  >
-                    <option selected>Expense Category</option>
-                    <option value="Education" name="category">Education</option>
-                    <option value="Fixed expenses" name="category">Fixed expenses</option>
-                    <option value="Groceries" name="category">Groceries</option>
-                    <option value="Savings contributions" name="category">Savings contributions</option>
-                    <option value="Transportation" name="category">Transportation</option>
-                    <option value="Utilities" name="category">Utilities</option>
-                  </select>
-                </div>
-                <textarea
-                  class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                  rows="2"
-                  name="description"
-                  placeholder="Expense description"
-                ></textarea>
+                <div class="grid sm:flex gap-8">{{ form.amount }} {{ form.merchant }}</div>
+                <label for="af-payment-payment-method" class="inline-block text-sm font-medium dark:text-white"> Expense Categories </label>
+                <div class="grid sm:flex gap-3">{{ form.category }}</div>
+                {{ form.description }}
               </div>
             </div>
             <!-- End Section -->
@@ -288,37 +258,24 @@
             <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
               <label for="af-payment-payment-method" class="inline-block text-sm font-medium dark:text-white"> Payment method </label>
 
-              <div class="mt-2 space-y-3">
-                <select
-                  name="category"
-                  class="py-2 px-3 pe-9 block w-[400px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                >
-                  <option selected>Payment method</option>
-                  <option value="Cash" name="category">Cash</option>
-                  <option value="Credit card" name="category">Credit card</option>
-                  <option value="Debit card" name="category">Debit card</option>
-                  <option value="Bank transfer" name="category">Bank transfer</option>
-                  <option value="Mobile money" name="category">Mobile money</option>
-                </select>
-              </div>
+              <div class="mt-2 space-y-3">{{ form.payment_method }}</div>
+            </div>
+            <div class="mt-5 flex justify-end gap-x-2">
+              <button
+                type="button"
+                class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-gray-800 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              >
+                Edit expense details
+              </button>
             </div>
             <!-- End Section -->
           </form>
-
-          <div class="mt-5 flex justify-end gap-x-2">
-            <button
-              type="button"
-              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-gray-800 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            >
-              Save expense details
-            </button>
-          </div>
         </div>
         <!-- End Card -->
       </div>
