@@ -12,7 +12,7 @@ def all_expenses(request):
     return render(request, 'main/expenses.html')
 
 def add_expenses(request):
-    pass
+     return render(request, 'main/add_expenses.html')
 
 def edit_expenses(request,pk):
     pass

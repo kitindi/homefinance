@@ -1,6 +1,6 @@
 {% extends "main/base.html" %} {% block content %}
 
-<main class="bg-gray-100 dark:bg-slate-900 min-h-screen">
+<main class="bg-gray-100 dark:bg-slate-900">
   <!-- ========== MAIN CONTENT ========== -->
   <!-- Sidebar Toggle -->
   {% include "main/sidebar.html" %}
@@ -8,7 +8,8 @@
   <!-- ========== HEADER ========== -->
   <header class="w-full px-16 sm:flex-nowrap z-50 bg-white border-b text-sm py-2.5 sm:py-4 dark:bg-slate-900 dark:border-gray-700">
     <nav class="w-full flex basis-full items-center mx-auto px-4 sm:pr-6 sm:pl-60" aria-label="Global">
-      <div class="w-full flex items-center justify-end ms-auto sm:justify-between sm:gap-x-3 sm:order-3">
+      <div class="w-full flex items-center justify-end ms-auto sm:justify-end sm:gap-x-3 sm:order-3">
+        {% comment %}
         <div class="sm:hidden">
           <button
             type="button"
@@ -31,8 +32,9 @@
             </svg>
           </button>
         </div>
+        {% endcomment %}
 
-        <div class="hidden sm:block">
+        <div class="hidden sm:hidden">
           <label for="icon" class="sr-only">Search</label>
           <div class="relative w-[400px]">
             <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
@@ -226,35 +228,99 @@
   </header>
   <!-- ========== END HEADER ========== -->
   <!-- Content -->
-  <div class="w-full pt-5 px-16 sm:px-16 md:px-16 lg:ps-72">
-    <h2 class="px-6 text-2xl text-slate-700 font-medium">Set prefered currency</h2>
+  <div class="w-full pt-5 px-16 sm:px-20 md:px-16 lg:ps-72 min-h-screen">
     <div class="px-6">
-      {% for message in messages %}
-      <p class="text-green-500 text-sm py-2">{{ message }}</p>
-      {% endfor %}
-    </div>
-    <div class="max-w-[500px] mt-3 px-5">
-      <form action="{% url 'preferences' %}" method="POST" class="w-full">
-        {% csrf_token %}
-        <div class="py-8">
-          <select
-            name="currency"
-            class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-          >
-            {% if user_preferences %}
-            <option selected name="currency" value="{{ user_preferences }}">{{ user_preferences }}</option>
-            {% endif %} {% for currency in currencies %}
-            <option name="currency" value="{{ currency.name }} - {{ currency.value }}">{{ currency.name }} - {{ currency.value }}</option>
-            {% endfor %}
-          </select>
+      <!-- form box-->
+      <!-- Card Section -->
+      <div class="max-w-4xl lg:py-8 mx-auto">
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900">
+          <div class="text-center mb-8">
+            <h2 class="text-xl md:text-xl font-bold text-gray-800 dark:text-gray-200">Create New Expense</h2>
+          </div>
+
+          <form>
+            <!-- Section -->
+            <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
+              <label for="af-payment-billing-address" class="inline-block text-sm font-medium dark:text-white"> Expense details </label>
+
+              <div class="mt-2 space-y-3">
+                <div class="grid sm:flex gap-8">
+                  <input
+                    type="text"
+                    name="amount"
+                    class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                    placeholder="Amount"
+                  />
+                  <input
+                    type="text"
+                    name="merchant"
+                    class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                    placeholder="Merchant"
+                  />
+                </div>
+                <div class="grid sm:flex gap-3">
+                  <select
+                    name="category"
+                    class="py-2 px-3 pe-9 block w-[400px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                  >
+                    <option selected>Expense Category</option>
+                    <option value="Fixed expenses" name="category">Fixed expenses</option>
+                    <option value="Groceries" name="category">Groceries</option>
+                    <option value="Savings contributions" name="category">Savings contributions</option>
+                    <option value="Transportation" name="category">Transportation</option>
+                    <option value="Utilities" name="category">Utilities</option>
+                  </select>
+                </div>
+                <textarea
+                  class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                  rows="2"
+                  name="description"
+                  placeholder="Expense description"
+                ></textarea>
+              </div>
+            </div>
+            <!-- End Section -->
+
+            <!-- Section -->
+            <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
+              <label for="af-payment-payment-method" class="inline-block text-sm font-medium dark:text-white"> Payment method </label>
+
+              <div class="mt-2 space-y-3">
+                <select
+                  name="category"
+                  class="py-2 px-3 pe-9 block w-[400px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                >
+                  <option selected>Payment method</option>
+                  <option value="Cash" name="category">Cash</option>
+                  <option value="Credit card" name="category">Credit card</option>
+                  <option value="Debit card" name="category">Debit card</option>
+                  <option value="Bank transfer" name="category">Bank transfer</option>
+                  <option value="Mobile money" name="category">Mobile money</option>
+                </select>
+              </div>
+            </div>
+            <!-- End Section -->
+          </form>
+
+          <div class="mt-5 flex justify-end gap-x-2">
+            <button
+              type="button"
+              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-gray-800 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            >
+              Save expense details
+            </button>
+          </div>
         </div>
-        <button
-          type="submit"
-          class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
-        >
-          Set currency
-        </button>
-      </form>
+        <!-- End Card -->
+      </div>
+      <!-- End Card Section -->
     </div>
   </div>
   <!-- End Content -->
