@@ -230,7 +230,7 @@
     <div class="px-6 container grid grid-cols-12 mt-2 py-2 gap-3">
       <div class="col-span-8"><h2 class="text-[18px] font-medium text-slate-700">Overview</h2></div>
       <div class="col-span-4 px-6"> 
-        <h3 class="text-[18px] text-slate-700 font-medium">Expenses Breakdown</h3>
+        <h3 class="text-[18px] text-slate-700 font-medium">Expense Breakdown</h3>
       </div>
       
     </div>
@@ -269,7 +269,7 @@
               </div>
             </div>
             <div class="py-4">
-              <p class="text-[18px] font-bold text-slate-700">Tsh 500,000</p>
+              <p class="text-[18px] font-bold text-slate-700">Tsh 1,500,000</p>
             </div>
           </div>
           <div class="col-span-4 bg-white p-4 rounded-lg">
@@ -303,8 +303,8 @@
 
                 <th  class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
                   <div class="flex items-center gap-x-2">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                      Item Name
+                    <span class="text-xs font-semibold capitalize  tracking-wide text-gray-800 dark:text-gray-200">
+                      Merchant
                     </span>
                   </div>
                 </th>
@@ -313,16 +313,16 @@
 
                 <th  class="px-6 py-3 text-start">
                   <div class="flex items-center gap-x-2">
-                    <span class="text-xs font-semibold uppercase  text-gray-800 dark:text-gray-200">
-                      price
+                    <span class="text-xs font-semibold capitalize  text-gray-800 dark:text-gray-200">
+                      Amount
                     </span>
                   </div>
                 </th>
 
                 <th  class="px-6 py-3 text-start">
                   <div class="flex items-center gap-x-2">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                      Date bought
+                    <span class="text-xs font-semibold capitalize  tracking-wide text-gray-800 dark:text-gray-200">
+                      Date
                     </span>
                   </div>
                 </th>
@@ -338,7 +338,7 @@
                   <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
                     <div class="flex items-center gap-x-3">
                             
-                        <span class="block text-sm text-gray-500">christina@site.com</span>
+                        <span class="block text-sm text-gray-500">Children Bicycle</span>
                       
                     </div>
                   </div>
@@ -348,14 +348,14 @@
                 <td class="size-px whitespace-nowrap">
                   <div class="px-6 py-3">
                     <div class="flex items-center gap-x-3">
-                      <span class="text-xs text-gray-500">1/5</span>
+                      <span class="text-xs text-gray-500">TSH 130,000</span>
                       
                     </div>
                   </div>
                 </td>
                 <td class="size-px whitespace-nowrap">
                   <div class="px-6 py-3">
-                    <span class="text-sm text-gray-500">28 Dec, 12:12</span>
+                    <span class="text-sm text-gray-500">24, March 2024</span>
                   </div>
                 </td>
                 <td class="size-px whitespace-nowrap">
@@ -398,9 +398,66 @@
       </div>
       {% comment %} right column {% endcomment %}
       <div class="col-span-4 px-6">
-       
+       {% comment %} card - 1 {% endcomment %}
         <div class="bg-white p-4 rounded-lg ">
-          pie graph here</div>
+          pie graph here
+        </div>
+       {% comment %} card - 1 {% endcomment %}
+        <div class="py-4 mt-3">
+          <h3 class="text-[18px] text-slate-700 font-medium">Budget</h3>
+        </div>
+        {% comment %} card - 1 {% endcomment %}
+        <div class="bg-white p-4 rounded-lg">
+          <!--Budget card-->
+          <div class="py-3">
+            <div>
+              
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Tsh 120,000</span><span>Tsh 300,000</span></h3>
+              <!-- Progress -->
+              <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-green-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="width: 65%"></div>
+              </div>
+              <!-- End Progress -->
+              <h3 class="text-[13px] text-slate-700 font-medium my-2">Home Groceries</h3>
+            </div>
+            
+          </div>
+          <!--End of card-->
+          <!--Budget card-->
+          <div class="py-3">
+            <div>
+              
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Tsh 120,000</span><span>Tsh 300,000</span></h3>
+              <!-- Progress -->
+              <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r from-green-500 via-amber-300 to-red-500  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="width: 100%"></div>
+              </div>
+              <!-- End Progress -->
+              <h3 class="text-[13px] text-slate-700 font-medium my-2">Fixed Bills</h3>
+            </div>
+            
+          </div>
+          <!--End of card-->
+          <!--Budget card-->
+          <div class="py-3">
+            <div>
+              
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Tsh 300,000</span><span>Tsh 300,000</span></h3>
+              <!-- Progress -->
+              <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-red-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="width: 100%"></div>
+              </div>
+              <!-- End Progress -->
+              <h3 class="text-[13px] text-slate-700 font-medium my-2">Monthly Savings</h3>
+            </div>
+            
+          </div>
+          <!--End of card-->
+        </div>
+        </div>
+        
+        
+        </div>       
         </div>
       </div>
     </div>

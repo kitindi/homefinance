@@ -9,7 +9,7 @@ def dashboard_view(request):
 
 
 def all_expenses(request):
-    pass
+    return render(request, 'main/expenses.html')
 
 def add_expenses(request):
     pass
