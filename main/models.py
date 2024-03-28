@@ -3,9 +3,13 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=256, null=True)
+
 class Expense(models.Model):
     
-    EXPENSE_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'),("Others", 'Others'))
+    EXPENSE_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'),("Shopping", 'Shopping'))
     PAYMENT_METHOD = (('Cash', 'Cash'),('Credit card', 'Credit card'),('Debit card', 'Debit card'),('Bank transfer', 'Bank transfer'),('Mobile money', 'Mobile money'))
     amount = models.FloatField()
     merchant = models.CharField(max_length=255, null=True)

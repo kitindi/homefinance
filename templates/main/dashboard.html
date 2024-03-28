@@ -291,13 +291,15 @@
           </div>
         </div>
         {% comment %} card-2 {% endcomment %}
-        <div class="bg-white p-5 rounded-lg mt-4"><div class="w-full h-full">
+        <div class="bg-white p-5 rounded-lg mt-4">
+          <h3 class="text-[16px] text-slate-700 font-medium pb-6 pt-2">Monthly Expenses in 2024</h3>
+          <div class="w-full h-[50vh]">
           <canvas id="dash_bar" class="w-full"></canvas>
         </div></div>
         {% comment %} card-3 {% endcomment %}
         <div class="bg-white p-5 rounded-lg my-4">
           <h3 class="text-[18px] text-slate-700 font-medium my-8">Recent Activities</h3>
-          <h3 class="text-[16px] text-slate-700 font-medium mb-4">Latest transactions</h3>
+          <h3 class="text-[16px] text-slate-700 font-medium mb-4">Latest Transactions</h3>
           <div>
             <!-- Table -->
           <table class="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 p-3">
@@ -403,7 +405,7 @@
       <div class="col-span-4 px-6">
        {% comment %} card - 1 {% endcomment %}
         <div class="bg-white p-4 rounded-lg ">
-          <div class="w-full h-full">
+          <div class="w-full  h-[40vh] flex justify-center items-center">
             <canvas id="dash_pie" class="w-full"></canvas>
           </div>
         </div>
@@ -471,6 +473,74 @@
   <!-- ========== END MAIN CONTENT ========== -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'js/stats.js' %}"></script>
+<script>
+
+  const dash_bar = document.getElementById("dash_bar");
+new Chart(dash_bar, {
+  type: "bar",
+  data: {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "TZSh",
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: "#282F44",
+        borderWidth: 0.2,
+        borderRadius: 0.9,
+      },
+      {
+        label: "TZSh",
+        data: [1, 30, 3, 22, 2, 3],
+        backgroundColor: "#68D89B",
+        borderWidth: 0.2,
+        borderRadius: 0.9,
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+          display: false
+      },
+  },
+    scales: {
+      // y: {
+      //   beginAtZero: true,
+      // },
+    },
+  },
+});
+
+
+const dash_pie = document.getElementById("dash_pie");
+new Chart(dash_pie, {
+  type: "doughnut",
+  data: {
+    labels: {{labels|safe}},
+    datasets: [
+      {
+        label: "TZSh",
+        data: {{data|safe}},
+        {% comment %} backgroundColor: ["#4ade80", "#14b8a6", "#374151", "#fcd34d", "#020617", "#f87171", "#0ea5e9", "#001f3f"], {% endcomment %}
+        borderWidth: 0.2,
+        borderRadius: 0.9,
+      },
+    ],
+  },
+  options: {
+    cutout: 120,
+    plugins: {
+      legend: {
+          display: false
+      },
+     
+  }
+    
+  },
+});
+
+
+</script>
 
 </main>
 {% endblock content %}

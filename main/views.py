@@ -13,7 +13,25 @@ import json
 
 @login_required(login_url='login')
 def dashboard_view(request):
-    return render(request, 'main/dashboard.html')
+    expenses = Expense.objects.filter(owner=request.user)
+    lables = ['Education','Groceries','Transportation','Utilities','Cash','Fixed expenses','Savings contributions',"Shopping"]
+    expenses_data =[]
+    
+    for category in lables:
+        total = 0
+        for expense in expenses:
+            if category == expense.category:
+                total += expense.amount
+        expenses_data.append(total)
+    
+    print(expenses_data)
+                
+            
+       
+
+        
+    context = {"labels":lables,"data":expenses_data}
+    return render(request, 'main/dashboard.html', context)
 
 
 class ExpenseFilter(django_filters.FilterSet):

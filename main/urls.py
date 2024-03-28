@@ -10,4 +10,5 @@ urlpatterns = [
     path("expenses/delete/<int:pk>", views.delete_expenses, name='delete-expense'),
     path("expenses_summary", views.expense_category_summary, name='expense-summary'),
     path("analytics", views.analytics, name='analytics'),
+    
 ]
