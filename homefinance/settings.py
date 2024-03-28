@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "preferences",
     "tailwind",
     "theme",
-    'django_browser_reload'
+    'django_browser_reload',
+    'django_filters'
  
 ]
 

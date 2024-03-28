@@ -1,4 +1,6 @@
-{% extends "main/base.html" %} {% block content %}
+{% extends "main/base.html" %} 
+{% load static %}
+{% block content %}
 
 <main class="bg-gray-100 dark:bg-slate-900">
   <!-- ========== MAIN CONTENT ========== -->
@@ -7,62 +9,8 @@
   <!-- End Sidebar -->
   <!-- ========== HEADER ========== -->
   <header class="w-full px-16 sm:flex-nowrap z-50 bg-white border-b text-sm py-2.5 sm:py-4 dark:bg-slate-900 dark:border-gray-700">
-    <nav class="w-full flex basis-full items-center mx-auto px-4 sm:pr-6 sm:pl-60" aria-label="Global">
-      <div class="w-full flex items-center justify-end ms-auto sm:justify-end sm:gap-x-3 sm:order-3">
-        {% comment %}
-        <div class="sm:hidden">
-          <button
-            type="button"
-            class="inline-flex flex-shrink-0 justify-center items-center gap-2 size-[38px] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
-          >
-            <svg
-              class="flex-shrink-0 size-4"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
-          </button>
-        </div>
-        {% endcomment %}
-
-        <div class="hidden sm:hidden">
-          <label for="icon" class="sr-only">Search</label>
-          <div class="relative w-[400px]">
-            <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-              <svg
-                class="flex-shrink-0 size-4 text-gray-500"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="icon"
-              name="icon"
-              class="py-2 pe-4 ps-10 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-              placeholder="Search"
-            />
-          </div>
-        </div>
+    <nav class="w-full flex justify-end basis-full items-center mx-auto px-4 sm:pr-6 sm:pl-60" aria-label="Global">
+      
 
         <div class="flex flex-row items-center justify-end gap-2">
           <button
@@ -229,67 +177,26 @@
   <!-- ========== END HEADER ========== -->
   <!-- Content -->
   <div class="w-full pt-5 px-16 sm:px-20 md:px-16 lg:ps-72 min-h-screen">
-    <div class="px-6">
-      <!-- form box-->
-      <!-- Card Section -->
-      <div class="max-w-4xl lg:py-8 mx-auto">
-        <!-- Card -->
-        <div class="bg-white rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900">
-          <div class="text-center mb-8">
-            <h2 class="text-xl md:text-xl font-bold text-gray-800 dark:text-gray-200">Create New Expense</h2>
-          </div>
-
-          <form method="POST" action="">
-            {% csrf_token %}
-            <!-- Section -->
-            <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
-              <label for="af-payment-billing-address" class="inline-block text-sm font-medium dark:text-white"> Expense details </label>
-
-              <div class="mt-2 space-y-3">
-                <div class="grid sm:flex gap-8">{{ form.amount }} {{ form.merchant }}</div>
-                <label for="af-payment-payment-method" class="inline-block text-sm font-medium dark:text-white"> Expense Categories </label>
-                <div class="grid sm:flex gap-3">{{ form.category }}</div>
-                {{ form.description }}
-              </div>
-            </div>
-            <!-- End Section -->
-
-            <!-- Section -->
-            <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
-              <label for="af-payment-payment-method" class="inline-block text-sm font-medium dark:text-white"> Payment method </label>
-
-              <div class="mt-2 space-y-3">{{ form.payment_method }}</div>
-              <div class="mt-5 flex justify-between items-center gap-x-2">
-                <div>
-                  {% if messages %} {% for message in message %}
-                  <p class="text-sm text-red-500">{{ message }}</p>
-                  {% endfor %} {% endif %}
-                </div>
-                <div>
-                  <a href="{% url "all-expenses" %}"
-                    type="button"
-                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  >
-                    Cancel
-                  </a>
-                  <button
-                    type="submit"
-                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-gray-800 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  >
-                    Save expense details
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- End Section -->
-          </form>
-        </div>
-        <!-- End Card -->
+    <div class="px-6 container grid grid-cols-12 mt-2 py-2 gap-3">
+      <div class="col-span-8"><h2 class="text-[18px] font-medium text-slate-700"> <span class="font-semibold">Expenses & Income Analysis</span></h2></div>
+      <div class="col-span-4 px-6"> 
+       
       </div>
-      <!-- End Card Section -->
+      
     </div>
+    <div class=" container mt-2">
+      <div class=" ">
+        
+           <!-- Table Section -->
+<div class="max-w-[85rem] px-3 py-4 sm:px-6 lg:px-6 lg:py-4 mx-auto">
+    <div class="w-[600px] h-[800px]">
+        <canvas id="myChart"></canvas>
+      </div>
   </div>
-  <!-- End Content -->
+  </div>
   <!-- ========== END MAIN CONTENT ========== -->
 </main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/stats.js' %}"></script>
+
 {% endblock content %}

@@ -1,4 +1,4 @@
-{% extends "main/base.html" %} {% block content %}
+{% extends "main/base.html" %} {% load static %}{% block content %}
 
 <main class="bg-gray-100 dark:bg-slate-900">
   <!-- ========== MAIN CONTENT ========== -->
@@ -291,19 +291,22 @@
           </div>
         </div>
         {% comment %} card-2 {% endcomment %}
-        <div class="bg-white p-5 rounded-lg mt-4">bar graph here</div>
+        <div class="bg-white p-5 rounded-lg mt-4"><div class="w-full h-full">
+          <canvas id="dash_bar" class="w-full"></canvas>
+        </div></div>
         {% comment %} card-3 {% endcomment %}
         <div class="bg-white p-5 rounded-lg my-4">
-          <h3 class="text-[18px] text-slate-700 font-medium">Recent Activities</h3>
+          <h3 class="text-[18px] text-slate-700 font-medium my-8">Recent Activities</h3>
+          <h3 class="text-[16px] text-slate-700 font-medium mb-4">Latest transactions</h3>
           <div>
             <!-- Table -->
-          <table class="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4">
+          <table class="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 p-3">
             <thead class="bg-gray-50 dark:bg-slate-800">
               
 
                 <th  class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
                   <div class="flex items-center gap-x-2">
-                    <span class="text-xs font-semibold capitalize  tracking-wide text-gray-800 dark:text-gray-200">
+                    <span class="text-sm font-semibold capitalize  tracking-wide text-gray-800 dark:text-gray-200">
                       Merchant
                     </span>
                   </div>
@@ -313,7 +316,7 @@
 
                 <th  class="px-6 py-3 text-start">
                   <div class="flex items-center gap-x-2">
-                    <span class="text-xs font-semibold capitalize  text-gray-800 dark:text-gray-200">
+                    <span class="text-sm font-semibold capitalize  text-gray-800 dark:text-gray-200">
                       Amount
                     </span>
                   </div>
@@ -321,7 +324,7 @@
 
                 <th  class="px-6 py-3 text-start">
                   <div class="flex items-center gap-x-2">
-                    <span class="text-xs font-semibold capitalize  tracking-wide text-gray-800 dark:text-gray-200">
+                    <span class="text-sm font-semibold capitalize  tracking-wide text-gray-800 dark:text-gray-200">
                       Date
                     </span>
                   </div>
@@ -348,7 +351,7 @@
                 <td class="size-px whitespace-nowrap">
                   <div class="px-6 py-3">
                     <div class="flex items-center gap-x-3">
-                      <span class="text-xs text-gray-500">TSH 130,000</span>
+                      <span class="text-sm text-gray-500">TSH 130,000</span>
                       
                     </div>
                   </div>
@@ -400,7 +403,9 @@
       <div class="col-span-4 px-6">
        {% comment %} card - 1 {% endcomment %}
         <div class="bg-white p-4 rounded-lg ">
-          pie graph here
+          <div class="w-full h-full">
+            <canvas id="dash_pie" class="w-full"></canvas>
+          </div>
         </div>
        {% comment %} card - 1 {% endcomment %}
         <div class="py-4 mt-3">
@@ -464,5 +469,8 @@
   </div>
   <!-- End Content -->
   <!-- ========== END MAIN CONTENT ========== -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/stats.js' %}"></script>
+
 </main>
 {% endblock content %}
