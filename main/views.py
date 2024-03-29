@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Expense
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import ExpenseForm
+from .forms import ExpenseForm,BudgetForm
 from django.core.paginator import Paginator
 import django_filters
 import datetime
@@ -134,7 +134,7 @@ def delete_expenses(request,pk):
      return redirect("all-expenses")
  
  
- 
+@login_required(login_url='login') 
 def expense_category_summary(request):
     today_date = datetime.date.today()
     three_moths_ago = today_date - datetime.timedelta(days=30*6)
@@ -161,3 +161,10 @@ def expense_category_summary(request):
     return JsonResponse({'expense_category_data': final_rep}, safe=False)
     
 
+def budget(request):
+    return render(request, 'main/budget.html')
+
+def add_budget(request):
+    form = BudgetForm()
+    context = {'form': form,}
+    return render(request, 'main/add_budget.html', context)

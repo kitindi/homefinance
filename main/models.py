@@ -37,8 +37,8 @@ class Budget(models.Model):
     budget_name = models.CharField(max_length=256, unique=True, null=True)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
-    amout = models.IntegerField(null=True)
-    Category = models.CharField(max_length=255, null=True, choices = BUDGET_CATEGORY)
+    amount = models.IntegerField(null=True)
+    category = models.CharField(max_length=255, null=True, choices = BUDGET_CATEGORY)
     description = models.TextField(null=True)
     
     def __str__(self):

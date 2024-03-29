@@ -8,7 +8,8 @@ urlpatterns = [
     path("expenses/add/", views.add_expenses, name='add-expense'),
     path("expenses/edit/<int:pk>", views.edit_expenses, name='edit-expense'),
     path("expenses/delete/<int:pk>", views.delete_expenses, name='delete-expense'),
-    path("expenses_summary", views.expense_category_summary, name='expense-summary'),
-
+    path("expenses_summary/", views.expense_category_summary, name='expense-summary'),
+    path("budget/", views.budget, name='budget'),
+    path("add_budget/", views.add_budget, name='add_budget'),
     
 ]
