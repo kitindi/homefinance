@@ -16,21 +16,52 @@ def dashboard_view(request):
     expenses = Expense.objects.filter(owner=request.user)
     lables = ['Education','Groceries','Transportation','Utilities','Cash','Fixed expenses','Savings contributions',"Shopping"]
     expenses_data =[]
+    mothly_expenses = []
+    total_expenses =0
+    
+    monthly_savings = []
+    
+  
     
     for category in lables:
         total = 0
         for expense in expenses:
             if category == expense.category:
                 total += expense.amount
+                print()
         expenses_data.append(total)
-    
-    print(expenses_data)
-                
-            
-       
 
+# calculate total mothly expense for each month
+    for month in range(1,12):
+        total = 0
+        for expense in expenses:
+            if expense.date.month == month and expense.category != 'Savings contributions':
+                 total += expense.amount                
         
-    context = {"labels":lables,"data":expenses_data}
+        mothly_expenses.append(total)  
+   
+# calculate total mothly expense for each month
+    
+    for expense in expenses:
+        if expense.category != 'Savings contributions':
+            total_expenses += expense.amount                
+        
+    print(total_expenses)
+   
+    
+       
+        
+# calculate total mothly savings for each month
+    for month in range(1,12):
+        total = 0
+        for expense in expenses:
+            if expense.date.month == month and expense.category == 'Savings contributions':
+                 total += expense.amount                
+        
+        monthly_savings.append(total)  
+     
+                
+    context = {"labels":lables,"data":expenses_data,"expenses_data":mothly_expenses,"savings_data":monthly_savings, "total_expenses":total_expenses}
     return render(request, 'main/dashboard.html', context)
 
 
@@ -130,5 +161,3 @@ def expense_category_summary(request):
     return JsonResponse({'expense_category_data': final_rep}, safe=False)
     
 
-def analytics(request):
-    return render(request, 'main/analytics.html')

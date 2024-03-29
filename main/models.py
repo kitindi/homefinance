@@ -26,5 +26,22 @@ class Expense(models.Model):
     
     class Meta:
         ordering=["-date"]
+
+
+class Income(models.Model):
+    pass
+
+
+class Budget(models.Model):
+    BUDGET_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'),("Shopping", 'Shopping'))
+    budget_name = models.CharField(max_length=256, unique=True, null=True)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    amout = models.IntegerField(null=True)
+    Category = models.CharField(max_length=255, null=True, choices = BUDGET_CATEGORY)
+    description = models.TextField(null=True)
+    
+    def __str__(self):
+        return self.budget_name
     
 

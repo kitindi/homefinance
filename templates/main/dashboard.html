@@ -252,7 +252,7 @@
               </div>
             </div>
             <div class="py-4">
-              <p class="text-[18px] font-bold text-slate-700">Tsh 500,000</p>
+              <p class="text-[18px] font-bold text-slate-700">Tsh {{ total_expenses }}</p>
             </div>
           </div>
           <div class="col-span-4 bg-white p-4 rounded-lg">
@@ -479,18 +479,18 @@
 new Chart(dash_bar, {
   type: "bar",
   data: {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     datasets: [
       {
         label: "TZSh",
-        data: [12, 19, 3, 5, 2, 3],
+        data: {{expenses_data|safe}},
         backgroundColor: "#282F44",
         borderWidth: 0.2,
         borderRadius: 0.9,
       },
       {
         label: "TZSh",
-        data: [1, 30, 3, 22, 2, 3],
+        data: {{savings_data|safe}},
         backgroundColor: "#68D89B",
         borderWidth: 0.2,
         borderRadius: 0.9,
