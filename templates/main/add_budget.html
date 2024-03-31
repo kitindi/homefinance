@@ -243,42 +243,61 @@
             {% csrf_token %}
             <!-- Section -->
             <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
-              <label for="af-payment-billing-address" class="inline-block text-sm font-medium dark:text-white"> Budget Details</label>
+              <label for="af-payment-billing-address" class="inline-block text-[18px] font-medium dark:text-white mb-5"> Budget Details</label>
 
               <div class="mt-2 space-y-3">
-               
-                <div class="grid sm:flex gap-8">{{ form.budget_name }} {{ form.category }}</div>
-                <div class="mt-2 space-y-3">
-                  <div class="grid sm:flex gap-8">{{ form.start_date }} {{ form.end_date }}</div>
-                  
+                <div class="grid grid-cols-12 gap-8">
+                  <div class="col-span-6"><label for="" class="text-[14px] font-medium text-slate-600 py-3">Buget Name</label>{{ form.category }}
+                    {% if messages %}
+                    <div class="">
+                    {% for message in messages %}
+                      <div class="text-sm text-red-400 py-2">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                    </div>
+                  {% endif %}
+                  </div>
+                  <div class="col-span-6"><label for="" class="text-[14px] font-medium text-slate-600 py-3">Amount</label>{{ form.amount }}</div>
                 </div>
-                {{ form.description }}
+                <div class="mt-2 space-y-3">
+                  <div class="grid grid-cols-12 gap-8">
+                    <div class="col-span-6"><label for="" class="text-[14px] font-medium text-slate-600 py-3">Start Date</label>{{ form.start_date }}</div>
+                    <div class="col-span-6"><label for="" class="text-[14px] font-medium text-slate-600 py-3">End Date</label>{{ form.end_date }}</div>
+                  </div>
+                </div>
+                <div class="mt-2 space-y-3">
+                  <div class="grid grid-cols-12 gap-8">
+                    <div class="col-span-12"><label for="" class="text-[14px] font-medium text-slate-600 py-3">Description</label>{{ form.description }}</div>
+                  </div>
+                </div>
               </div>
-              
             </div>
             <!-- End Section -->
 
             <!-- Section -->
-            <div class="py-6 first:pt-0 last:pb-0"  >
-             
+            <div class="py-6 first:pt-0 last:pb-0">
               <div class="mt-5 flex justify-between items-center gap-x-2">
                 <div>
                   {% if messages %} {% for message in message %}
                   <p class="text-sm text-red-500">{{ message }}</p>
                   {% endfor %} {% endif %}
                 </div>
-                <div>
-                  <a href="{% url "all-expenses" %}"
-                    type="button"
-                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  >
-                    Cancel
-                  </a>
+                <div class="flex items-center gap-5">
+                  <a  href="{% url "budget" %}"
+                  type="button"
+                  class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-400 text-gray-500 "
+                >
+                  Cancel
+                </a>
                   <button
                     type="submit"
                     class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-gray-800 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                   >
-                    Save expense details
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#ededed" viewBox="0 0 256 256">
+                      <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                    </svg>
+                    Create badget
                   </button>
                 </div>
               </div>

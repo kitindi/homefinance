@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Expense
+from .models import Expense, Budget
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ExpenseForm,BudgetForm
@@ -162,9 +162,50 @@ def expense_category_summary(request):
     
 
 def budget(request):
-    return render(request, 'main/budget.html')
+    budgets =Budget.objects.filter(owner=request.user)
+    context = {"budgets": budgets}
+    return render(request, 'main/budget.html', context)
 
 def add_budget(request):
+    budgets =Budget.objects.filter(owner=request.user)
     form = BudgetForm()
-    context = {'form': form,}
-    return render(request, 'main/add_budget.html', context)
+    context = {'form': form}
+    
+
+    
+    if request.method == 'GET':
+        return render(request, 'main/add_budget.html', context)
+    
+    if request.method == 'POST':
+        form = BudgetForm(request.POST)
+        
+        if form.is_valid():
+            for budget in budgets:
+               if request.POST['category'] == budget.category:
+                   messages.success(request,"Budget name already exists")
+                   return render(request, 'main/add_budget.html', context)
+                    
+            data = form.save(commit=False)
+            data.owner = request.user
+            data.save()
+            
+            return redirect("budget")
+        
+  
+def edit_budget(request,pk):
+    budget = Budget.objects.get(id=pk)
+    form = BudgetForm(instance=budget)
+    context ={"form": form}
+    
+    if request.method == 'GET':
+        return render(request, 'main/edit_budget.html', context)
+    
+    if request.method == 'POST':
+        form = BudgetForm(request.POST, instance=budget)
+        
+        if form.is_valid():           
+            data = form.save(commit=False)
+            data.owner = request.user
+            data.save()    
+    return redirect("budget")
+      
