@@ -9,9 +9,9 @@ class Category(models.Model):
 
 class Expense(models.Model):
     
-    EXPENSE_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),('Savings contributions', 'Savings contributions'),("Shopping", 'Shopping'))
+    EXPENSE_CATEGORY = (('Education', 'Education'),('Groceries', 'Groceries'),('Transportation', 'Transportation'),('Utilities', 'Utilities'),('Fixed expenses', 'Fixed expenses'),("Shopping", 'Shopping'))
     PAYMENT_METHOD = (('Cash', 'Cash'),('Credit card', 'Credit card'),('Debit card', 'Debit card'),('Bank transfer', 'Bank transfer'),('Mobile money', 'Mobile money'))
-    amount = models.FloatField()
+    amount = models.IntegerField(null=True)
     merchant = models.CharField(max_length=255, null=True)
     category = models.CharField(max_length=255, choices=EXPENSE_CATEGORY, null=True)
     date = models.DateField(default =now)

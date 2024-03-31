@@ -9,18 +9,28 @@ import django_filters
 import datetime
 from django.http import JsonResponse
 import json
+from django.db.models import Sum
 # Create your views here.
 
 @login_required(login_url='login')
 def dashboard_view(request):
     expenses = Expense.objects.filter(owner=request.user)
-    lables = ['Education','Groceries','Transportation','Utilities','Cash','Fixed expenses','Savings contributions',"Shopping"]
+    budgets = Budget.objects.filter(owner=request.user)
+    total_budget = Budget.objects.filter(owner=request.user).aggregate(Sum('amount'))
+    total_budget = total_budget['amount__sum']
+    lables = ['Education','Groceries','Transportation','Utilities','Fixed expenses',"Shopping"]
+    lables_budgets = []
     expenses_data =[]
     mothly_expenses = []
     total_expenses =0
-    
     monthly_savings = []
+    expense_percentages = []
+    savings_amount = 0
     
+    # pagination for expense listings
+    paginator = Paginator(expenses,4)
+    page_number = request.GET.get('page')
+    page_object = Paginator.get_page(paginator,page_number)
   
     
     for category in lables:
@@ -35,8 +45,8 @@ def dashboard_view(request):
     for month in range(1,12):
         total = 0
         for expense in expenses:
-            if expense.date.month == month and expense.category != 'Savings contributions':
-                 total += expense.amount                
+            if expense.date.month == month:
+                 total += round(expense.amount,0)                
         
         mothly_expenses.append(total)  
    
@@ -44,24 +54,32 @@ def dashboard_view(request):
     
     for expense in expenses:
         if expense.category != 'Savings contributions':
-            total_expenses += expense.amount                
+            total_expenses += round(expense.amount,0)               
         
-    print(total_expenses)
-   
-    
-       
-        
+
 # calculate total mothly savings for each month
     for month in range(1,12):
         total = 0
-        for expense in expenses:
-            if expense.date.month == month and expense.category == 'Savings contributions':
-                 total += expense.amount                
+        for budget in budgets:
+            if budget.date_created.month == month and budget.category == 'Savings contributions':
+                savings_amount = budget.amount
+                total += round(budget.amount,0)               
         
         monthly_savings.append(total)  
-     
-                
-    context = {"labels":lables,"data":expenses_data,"expenses_data":mothly_expenses,"savings_data":monthly_savings, "total_expenses":total_expenses}
+# calculate % of expense to the budget
+    for index in range(6):
+       for budget in budgets:
+           if lables[index] == budget.category:
+             cost = expenses_data[index]
+             budget_tospend = budget.amount
+             lables_budgets.append(budget_tospend)
+             percent = round((cost / budget_tospend)*100,0)
+             expense_percentages.append(percent)
+            
+    print(expense_percentages)
+    
+    balance = total_budget - total_expenses- savings_amount          
+    context = {"expenses":page_object,"labels":lables,"data":expenses_data,"expenses_data":mothly_expenses,"savings_data":monthly_savings, "total_expenses":total_expenses,"total_budget":total_budget, 'balance':balance,'education':expense_percentages[0],'edu_budget':lables_budgets[0],'groceries':expense_percentages[1],'grocery_budget':lables_budgets[1],'transportation':expense_percentages[2],'trans_budget':lables_budgets[2],'utilities':expense_percentages[3],'util_budget':lables_budgets[3],'fixed':expense_percentages[4],'fixed_budget':lables_budgets[4],'shoping':expense_percentages[5],'shop_budget':lables_budgets[5]}
     return render(request, 'main/dashboard.html', context)
 
 

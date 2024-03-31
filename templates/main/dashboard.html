@@ -33,33 +33,7 @@
         </div>
 
         <div class="hidden sm:block">
-          <label for="icon" class="sr-only">Search</label>
-          <div class="relative w-[400px]">
-            <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-              <svg
-                class="flex-shrink-0 size-4 text-gray-500"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="icon"
-              name="icon"
-              class="py-2 pe-4 ps-10 block w-full border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-              placeholder="Search"
-            />
-          </div>
+          <h3 class="text-[19px] font-medium text-slate-700">Dashboard</h3>
         </div>
 
         <div class="flex flex-row items-center justify-end gap-2">
@@ -252,7 +226,7 @@
               </div>
             </div>
             <div class="py-4">
-              <p class="text-[18px] font-bold text-slate-700">Tsh {{ total_expenses }}</p>
+              <p class="text-[18px] font-bold text-slate-600">Tsh {{ total_expenses }}</p>
             </div>
           </div>
           <div class="col-span-4 bg-white p-4 rounded-lg">
@@ -269,13 +243,13 @@
               </div>
             </div>
             <div class="py-4">
-              <p class="text-[18px] font-bold text-slate-700">Tsh 1,500,000</p>
+              <p class="text-[18px] font-bold text-slate-600">Tsh {{ total_budget }}</p>
             </div>
           </div>
           <div class="col-span-4 bg-white p-4 rounded-lg">
             <div class="flex justify-between">
               <h3 class="flex flex-col">
-                <span class="text-[16px] font-medium pb-2">Expense Analysis</span><span class="text-sm text-slate-500">March, 2024</span>
+                <span class="text-[16px] font-medium pb-2">Balance</span><span class="text-sm text-slate-500">March, 2024</span>
               </h3>
               <div class="w-8 h-8 flex justify-center items-center bg-green-300 rounded-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
@@ -286,7 +260,7 @@
               </div>
             </div>
             <div class="py-4">
-              <p class="text-[18px] font-bold text-slate-700">Tsh 500,000</p>
+              <p class="text-[18px] font-bold text-slate-600">TSh {{ balance }}</p>
             </div>
           </div>
         </div>
@@ -332,45 +306,51 @@
                   </div>
                 </th>
 
-                <th  class="px-6 py-3 text-end"></th>
+                <th  class="px-6 py-3 text-start"> <span class="text-sm font-semibold capitalize  tracking-wide text-gray-800 dark:text-gray-200">
+                  Payment Method
+                </span></th>
               </tr>
             </thead>
 
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-              <tr>
+             
+             {% for expense in expenses %}
+             <tr>
                
-                <td class="size-px whitespace-nowrap">
-                  <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
-                    <div class="flex items-center gap-x-3">
-                            
-                        <span class="block text-sm text-gray-500">Children Bicycle</span>
-                      
-                    </div>
+              <td class="size-px whitespace-nowrap">
+                <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                  <div class="flex items-center gap-x-3">
+                          
+                      <span class="block text-sm text-gray-500">{{ expense.merchant }}</span>
+                    
                   </div>
-                </td>
-                
-               
-                <td class="size-px whitespace-nowrap">
-                  <div class="px-6 py-3">
-                    <div class="flex items-center gap-x-3">
-                      <span class="text-sm text-gray-500">TSH 130,000</span>
-                      
-                    </div>
+                </div>
+              </td>
+              
+             
+              <td class="size-px whitespace-nowrap">
+                <div class="px-6 py-3">
+                  <div class="flex items-center gap-x-3">
+                    <span class="text-sm text-gray-500">Tsh {{ expense.amount }}</span>
+                    
                   </div>
-                </td>
-                <td class="size-px whitespace-nowrap">
-                  <div class="px-6 py-3">
-                    <span class="text-sm text-gray-500">24, March 2024</span>
-                  </div>
-                </td>
-                <td class="size-px whitespace-nowrap">
-                  <div class="px-6 py-1.5">
-                    <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
-                      Edit
-                    </a>
-                  </div>
-                </td>
-              </tr>
+                </div>
+              </td>
+              <td class="size-px whitespace-nowrap">
+                <div class="px-6 py-3">
+                  <span class="text-sm text-gray-500">{{ expense.date }}</span>
+                </div>
+              </td>
+              <td class="size-px whitespace-nowrap">
+                <div class="px-6 py-1.5">
+                  <p class="inline-flex items-center gap-x-1 text-sm text-blue-600  ">
+                    {{ expense.payment_method }}
+                  </p>
+                </div>
+              </td>
+            </tr>
+             {% endfor %}
+              
             </tbody>
           </table>
           <!-- End Table -->
@@ -379,21 +359,59 @@
           <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
             <div>
               <p class="text-sm text-gray-600 dark:text-gray-400">
-                <span class="font-semibold text-gray-800 dark:text-gray-200">6</span> results
+                Showing page
+                <span class="font-semibold text-gray-800 dark:text-gray-200">{{ expenses.number }}</span> of  <span class="font-semibold text-gray-800 dark:text-gray-200">{{ expenses.paginator.num_pages }}</span>
               </p>
             </div>
 
             <div>
               <div class="inline-flex gap-x-2">
-                <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                  <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  
+                {% if expenses.has_previous %}
+                <a
+                  href="?page={{expenses.previous_page_number}}"
+                  class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                >
+                  <svg
+                    class="flex-shrink-0 size-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
                   Prev
-                </button>
-
-                <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                </a>
+                {% endif %} {% if expenses.has_next %}
+                <a
+                  href="?page={{expenses.next_page_number}}"
+                  class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                >
                   Next
-                  <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
+                  <svg
+                    class="flex-shrink-0 size-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </a>
+                {% endif %}
+
+                
               </div>
             </div>
           </div>
@@ -419,13 +437,18 @@
           <div class="py-3">
             <div>
               
-              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Tsh 120,000</span><span>Tsh 300,000</span></h3>
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Education</span><span>Tsh {{ edu_budget }}</span></h3>
               <!-- Progress -->
-              <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-green-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="width: 65%"></div>
+              <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-green-400 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-amber-500" style="{% if education == 0 %}
+                width: 100%
+                {% else %}
+                width: {{ education }}%
+                {% endif %}
+                "></div>
               </div>
               <!-- End Progress -->
-              <h3 class="text-[13px] text-slate-700 font-medium my-2">Home Groceries</h3>
+              <h3 class="text-[13px] text-slate-700 font-medium my-2"></h3>
             </div>
             
           </div>
@@ -434,13 +457,20 @@
           <div class="py-3">
             <div>
               
-              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Tsh 120,000</span><span>Tsh 300,000</span></h3>
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Groceries</span><span>Tsh {{ grocery_budget }}</span></h3>
               <!-- Progress -->
-              <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r from-green-500 via-amber-300 to-red-500  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="width: 100%"></div>
+              <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
+                {% if groceries == 0 %}
+                width: 100%
+                {% else %}
+                width: {{ groceries }}%
+                {% endif %}
+                
+                  "></div>
               </div>
               <!-- End Progress -->
-              <h3 class="text-[13px] text-slate-700 font-medium my-2">Fixed Bills</h3>
+              <h3 class="text-[13px] text-slate-700 font-medium my-2"></h3>
             </div>
             
           </div>
@@ -449,17 +479,91 @@
           <div class="py-3">
             <div>
               
-              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Tsh 300,000</span><span>Tsh 300,000</span></h3>
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Transport</span><span>Tsh {{ trans_budget}}</span></h3>
               <!-- Progress -->
-              <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-red-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="width: 100%"></div>
+              <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
+                {% if transportation == 0 %}
+                width: 100%
+                {% else %}
+                width: {{ transportation }}%
+                {% endif %}
+                
+                  "></div>
               </div>
               <!-- End Progress -->
-              <h3 class="text-[13px] text-slate-700 font-medium my-2">Monthly Savings</h3>
+              <h3 class="text-[13px] text-slate-700 font-medium my-2"></h3>
             </div>
             
           </div>
           <!--End of card-->
+          <!--Budget card-->
+          <div class="py-3">
+            <div>
+              
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Utilities</span><span>Tsh {{ util_budget }}</span></h3>
+              <!-- Progress -->
+              <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
+                {% if utilities == 0 %}
+                width: 100%
+                {% else %}
+                width: {{ utilities }}%
+                {% endif %}
+                
+                  "></div>
+              </div>
+              <!-- End Progress -->
+              <h3 class="text-[13px] text-slate-700 font-medium my-2"></h3>
+            </div>
+            
+          </div>
+          <!--End of card-->
+          <!--Budget card-->
+          <div class="py-3">
+            <div>
+              
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Fixed expenses</span><span>Tsh {{ fixed_budget }}</span></h3>
+              <!-- Progress -->
+              <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-amber-500" style="
+                {% if fixed == 0 %}
+                width: 100%
+                {% else %}
+                width: {{ fixed }}%
+                {% endif %}
+                
+                  "></div>
+              </div>
+              <!-- End Progress -->
+              <h3 class="text-[13px] text-slate-700 font-medium my-2"></h3>
+            </div>
+            
+          </div>
+          <!--End of card-->
+          <!--Budget card-->
+          <div class="py-3">
+            <div>
+              
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Shopping</span><span>Tsh {{ shop_budget }}</span></h3>
+              <!-- Progress -->
+              <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
+                {% if shoping == 0 %}
+                width: 100%
+                {% else %}
+                width: {{ shoping }}%
+                {% endif %}
+                
+                  "></div>
+              </div>
+              <!-- End Progress -->
+              <h3 class="text-[13px] text-slate-700 font-medium my-2"></h3>
+            </div>
+            
+          </div>
+          <!--End of card-->
+          
         </div>
         </div>
         
