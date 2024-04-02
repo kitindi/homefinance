@@ -440,10 +440,10 @@
               <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Education</span><span>Tsh {{ edu_budget }}</span></h3>
               <!-- Progress -->
               <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-green-400 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-amber-500" style="{% if education == 0 %}
-                width: 100%
+                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-green-400 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-amber-500" style="{% if edu_percent == 0 %}
+                width: 0%
                 {% else %}
-                width: {{ education }}%
+                width: {{ edu_percent }}%
                 {% endif %}
                 "></div>
               </div>
@@ -457,14 +457,14 @@
           <div class="py-3">
             <div>
               
-              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Groceries</span><span>Tsh {{ grocery_budget }}</span></h3>
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Groceries</span><span>Tsh {{ gro_budget }}</span></h3>
               <!-- Progress -->
               <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                 <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
-                {% if groceries == 0 %}
-                width: 100%
+                {% if gro_percentage == 0 %}
+                width: 0%
                 {% else %}
-                width: {{ groceries }}%
+                width: {{ gro_percentage }}%
                 {% endif %}
                 
                   "></div>
@@ -483,10 +483,10 @@
               <!-- Progress -->
               <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                 <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
-                {% if transportation == 0 %}
-                width: 100%
+                {% if trans_percent == 0 %}
+                width: 0%
                 {% else %}
-                width: {{ transportation }}%
+                width: {{ trans_percent }}%
                 {% endif %}
                 
                   "></div>
@@ -501,14 +501,14 @@
           <div class="py-3">
             <div>
               
-              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Utilities</span><span>Tsh {{ util_budget }}</span></h3>
+              <h3 class="text-[14px] text-slate-700 font-medium flex justify-between items-center"><span>Utilities</span><span>Tsh {{util_budget }}</span></h3>
               <!-- Progress -->
               <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                 <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
-                {% if utilities == 0 %}
-                width: 100%
+                {% if util_percentage == 0 %}
+                width: 0%
                 {% else %}
-                width: {{ utilities }}%
+                width: {{ util_percentage }}%
                 {% endif %}
                 
                   "></div>
@@ -527,10 +527,10 @@
               <!-- Progress -->
               <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                 <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-amber-500" style="
-                {% if fixed == 0 %}
-                width: 100%
+                {% if fixed_percentage == 0 %}
+                width: 0%
                 {% else %}
-                width: {{ fixed }}%
+                width: {{ fixed_percentage }}%
                 {% endif %}
                 
                   "></div>
@@ -549,10 +549,10 @@
               <!-- Progress -->
               <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700 mt-3"  role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                 <div class="flex flex-col justify-center rounded-full overflow-hidden bg-gradient-to-r bg-green-400  text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-green-500" style="
-                {% if shoping == 0 %}
-                width: 100%
+                {% if shop_percentage == 0 %}
+                width: 0%
                 {% else %}
-                width: {{ shoping }}%
+                width: {{ shop_percentage }}%
                 {% endif %}
                 
                   "></div>

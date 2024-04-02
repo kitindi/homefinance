@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from validate_email import validate_email
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
+from .decorators import unauthenticated_user
 # Create your views here.
 
 

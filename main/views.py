@@ -10,20 +10,28 @@ import datetime
 from django.http import JsonResponse
 import json
 from django.db.models import Sum
+import datetime
 # Create your views here.
 
 @login_required(login_url='login')
 def dashboard_view(request):
     expenses = Expense.objects.filter(owner=request.user)
     budgets = Budget.objects.filter(owner=request.user)
-    total_budget = Budget.objects.filter(owner=request.user).aggregate(Sum('amount'))
-    total_budget = total_budget['amount__sum']
     lables = ['Education','Groceries','Transportation','Utilities','Fixed expenses',"Shopping"]
     lables_budgets = []
-    expenses_data =[]
-    mothly_expenses = []
-    total_expenses =0
+    
+    # for a pie chart
+    expenses_data =[] 
+    
+    # for a bar chart
+    mothly_expenses_bar = []
+    
+    # for a bar chart
     monthly_savings = []
+    
+    total_expenses =0
+    total_mothly_budget = 0
+   
     expense_percentages = []
     savings_amount = 0
     
@@ -31,55 +39,101 @@ def dashboard_view(request):
     paginator = Paginator(expenses,4)
     page_number = request.GET.get('page')
     page_object = Paginator.get_page(paginator,page_number)
-  
-    
+
+# calculate the category besed expenses amount for the current month
+    today = datetime.datetime.now()
     for category in lables:
         total = 0
         for expense in expenses:
-            if category == expense.category:
+            if category == expense.category  and expense.date.month == today.month :
                 total += expense.amount
-                print()
-        expenses_data.append(total)
+        expenses_data.append(total) 
+   
+# calculate total mothly expense for the current month
+    today = datetime.datetime.now()
+    for expense in expenses:
+            if expense.category != 'Savings contributions' and expense.date.month == today.month:
+                total_expenses += expense.amount
+                                                  
+        
 
-# calculate total mothly expense for each month
-    for month in range(1,12):
+# calculate total mothly savings for the current month
+    today = datetime.datetime.now()
+    for budget in budgets:
+        if budget.date_created.month == today.month:
+                total_mothly_budget += budget.amount           
+        
+        
+
+# generate a monthly total expenses for each month 
+
+    for month in range(1,13):
         total = 0
         for expense in expenses:
             if expense.date.month == month:
-                 total += round(expense.amount,0)                
-        
-        mothly_expenses.append(total)  
-   
-# calculate total mothly expense for each month
-    
-    for expense in expenses:
-        if expense.category != 'Savings contributions':
-            total_expenses += round(expense.amount,0)               
-        
+                total += round(expense.amount,0)
+            
+        mothly_expenses_bar.append(total)
+ 
+                
+# generate a monthly savings for each month 
 
-# calculate total mothly savings for each month
-    for month in range(1,12):
+    for month in range(1,13):
         total = 0
         for budget in budgets:
-            if budget.date_created.month == month and budget.category == 'Savings contributions':
-                savings_amount = budget.amount
-                total += round(budget.amount,0)               
-        
-        monthly_savings.append(total)  
-# calculate % of expense to the budget
-    for index in range(6):
-       for budget in budgets:
-           if lables[index] == budget.category:
-             cost = expenses_data[index]
-             budget_tospend = budget.amount
-             lables_budgets.append(budget_tospend)
-             percent = round((cost / budget_tospend)*100,0)
-             expense_percentages.append(percent)
+            if budget.date_created.month == month and budget.category == "Savings contributions":
+                total += round(budget.amount,0)
             
-    print(expense_percentages)
+        monthly_savings.append(total)
     
-    balance = total_budget - total_expenses- savings_amount          
-    context = {"expenses":page_object,"labels":lables,"data":expenses_data,"expenses_data":mothly_expenses,"savings_data":monthly_savings, "total_expenses":total_expenses,"total_budget":total_budget, 'balance':balance,'education':expense_percentages[0],'edu_budget':lables_budgets[0],'groceries':expense_percentages[1],'grocery_budget':lables_budgets[1],'transportation':expense_percentages[2],'trans_budget':lables_budgets[2],'utilities':expense_percentages[3],'util_budget':lables_budgets[3],'fixed':expense_percentages[4],'fixed_budget':lables_budgets[4],'shoping':expense_percentages[5],'shop_budget':lables_budgets[5]}
+# calculate % of expense to the current month budget 
+
+    edu_percentage = 0
+    edu_budget = 0
+    gro_percentage = 0
+    gro_budget = 0
+    trans_percentage = 0
+    trans_budget = 0
+    util_percentage =0
+    util_budget =0
+    fixed_percentage =0
+    fixed_budget =0
+    shop_percentage =0
+    shop_budget =0
+    for budget in budgets: 
+        if budget.category == "Education" and budget.date_created.month == today.month:
+            edu_percentage = (expenses_data[0]/budget.amount)*100
+            edu_budget = budget.amount
+        if budget.category == "Groceries" and budget.date_created.month == today.month:
+            gro_percentage = (expenses_data[1]/budget.amount)*100
+            gro_budget = budget.amount
+    
+        if budget.category == "Transportation" and budget.date_created.month == today.month:
+            trans_percentage = (expenses_data[2]/budget.amount)*100
+            trans_budget = budget.amount
+    
+        if budget.category == "Utilities" and budget.date_created.month == today.month:
+            util_percentage = (expenses_data[3]/budget.amount)*100
+            util_budget = budget.amount
+    
+        if budget.category == "Utilities" and budget.date_created.month == today.month:
+            util_percentage = (expenses_data[3]/budget.amount)*100
+            util_budget = budget.amount
+    
+        if budget.category == "Fixed expenses" and budget.date_created.month == today.month:
+            fixed_percentage = (expenses_data[4]/budget.amount)*100
+            fixed_budget = budget.amount
+            
+        if budget.category == "Shopping" and budget.date_created.month == today.month:
+            shop_percentage = (expenses_data[5]/budget.amount)*100
+            shop_budget = budget.amount
+    
+        
+                
+                
+    
+    balance = total_mothly_budget - total_expenses- savings_amount          
+    context = {"expenses":page_object,"labels":lables,"data":expenses_data,"expenses_data":mothly_expenses_bar,"savings_data":monthly_savings, "total_expenses":total_expenses,"total_budget":total_mothly_budget, 'balance':balance,"edu_percent":edu_percentage,'edu_budget':edu_budget,'gro_percentage':gro_percentage,'gro_budget':gro_budget,'trans_percent':trans_percentage,'trans_budget':trans_budget,'util_percentage':util_percentage,'util_budget':util_budget, 'fixed_percentage':fixed_percentage,'fixed_budget':fixed_budget, 'shop_percentage':shop_percentage,'shop_budget':shop_budget,}
     return render(request, 'main/dashboard.html', context)
 
 
@@ -181,7 +235,15 @@ def expense_category_summary(request):
 
 def budget(request):
     budgets =Budget.objects.filter(owner=request.user)
-    context = {"budgets": budgets}
+    show =[]
+    
+    today = datetime.datetime.now()
+    for budget in budgets:
+        if budget.date_created.month == today.month:
+            show.append(budget)
+                
+                
+    context = {"budgets": show}
     return render(request, 'main/budget.html', context)
 
 def add_budget(request):
@@ -198,11 +260,6 @@ def add_budget(request):
         form = BudgetForm(request.POST)
         
         if form.is_valid():
-            for budget in budgets:
-               if request.POST['category'] == budget.category:
-                   messages.success(request,"Budget name already exists")
-                   return render(request, 'main/add_budget.html', context)
-                    
             data = form.save(commit=False)
             data.owner = request.user
             data.save()
