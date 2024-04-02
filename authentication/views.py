@@ -7,28 +7,30 @@ from django.contrib.auth.models import User
 from validate_email import validate_email
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import auth
 from .decorators import unauthenticated_user
 # Create your views here.
 
+@unauthenticated_user
+def login(request):
 
-class  LoginView(View):
-    
-    def get(self, request):
+    if request.method == 'GET':
         return render(request, 'authentication/login.html')
     
-    def post(self, request):
-        username = request.POST['username']
-        password = request.POST['password']
-        
-        if username and password:
-            user = authenticate(request,username=username,password=password)
+   
+    if request.method == 'POST':    
+            username = request.POST['username']
+            password = request.POST['password']
             
-            if user:
-                 login(request, user)
-                 return redirect('dashboard')
-        messages.error(request,f'Invalid username or password')   
-        return render(request, 'authentication/login.html')
-    
+            if username and password:
+                user = authenticate(request,username=username,password=password)
+                
+                if user is not None:
+                    auth.login(request, user)
+                    return redirect('dashboard')
+            messages.error(request,f'Invalid username or password')   
+            return render(request, 'authentication/login.html')
+        
 # validate username if exists
 class  UsernameValidationView(View):
     
@@ -65,13 +67,13 @@ class  EmailValidationView(View):
         
         return JsonResponse({'email_valid':True})
             
-    
-class  RegisterView(View):
-    
-    def get(self, request):
+@unauthenticated_user  
+def register(request):
+
+    if request.method == 'GET':
         return render(request, 'authentication/register.html')
     
-    def post(self, request):
+    if request.method == 'POST':    
         # get user data
         username = request.POST['username']
         email = request.POST['email']
@@ -91,16 +93,6 @@ class  RegisterView(View):
                 
                 user = User.objects.create(username=username, email=email)
                 user.set_password(password)
-                # user.is_active = False
-                # email_subject = "Activate your account"
-                # email_body = "Test email"
-                # email = EmailMessage(
-                #         email_subject,
-                #         email_body,
-                #         "noreply@gmail.com",
-                #         [email]
-                #         )
-                # email.send(fail_silently=False)
                 user.save()
                 
                 return redirect("login")
@@ -111,8 +103,6 @@ class  RegisterView(View):
 
 # logout user
 
-class Logoutview(View):
-    def get(self, request):
-        logout(request)
-        
-        return redirect("login")
+def logout(request):
+    auth.logout(request)
+    return redirect("login")
