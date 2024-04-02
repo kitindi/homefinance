@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from dotenv import load_dotenv, dotenv_values 
 import os
 from pathlib import Path
+from datetime import timedelta
+from pytz import timezone
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -64,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = "homefinance.urls"
@@ -161,3 +164,9 @@ EMAIL_USE_TLS = True
 DEFAUL_FROM_EMAIL =os.getenv('EMAIL_HOST_USER')
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+
+AUTO_LOGOUT = {
+    'IDLE_TIME':3,
+    'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
+}

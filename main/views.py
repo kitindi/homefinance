@@ -232,7 +232,7 @@ def expense_category_summary(request):
     
     return JsonResponse({'expense_category_data': final_rep}, safe=False)
     
-
+@login_required(login_url='login') 
 def budget(request):
     budgets =Budget.objects.filter(owner=request.user)
     show =[]
@@ -246,27 +246,33 @@ def budget(request):
     context = {"budgets": show}
     return render(request, 'main/budget.html', context)
 
+@login_required(login_url='login') 
 def add_budget(request):
     budgets =Budget.objects.filter(owner=request.user)
+    existing_categories = []
+    for budget in budgets:
+        existing_categories.append(budget.category)
     form = BudgetForm()
     context = {'form': form}
-    
-
-    
     if request.method == 'GET':
         return render(request, 'main/add_budget.html', context)
     
     if request.method == 'POST':
-        form = BudgetForm(request.POST)
         
-        if form.is_valid():
-            data = form.save(commit=False)
-            data.owner = request.user
-            data.save()
-            
-            return redirect("budget")
+        category_value = request.POST['category']
+        if category_value in existing_categories:
+            messages.success(request,"The budget category already exists")
+            return render(request, 'main/add_budget.html', context)
+        else:
+            form = BudgetForm(request.POST)
+            if form.is_valid():
+                data = form.save(commit=False)
+                data.owner = request.user
+                data.save()
+                
+                return redirect("budget")
         
-  
+@login_required(login_url='login')   
 def edit_budget(request,pk):
     budget = Budget.objects.get(id=pk)
     form = BudgetForm(instance=budget)
