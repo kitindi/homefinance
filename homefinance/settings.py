@@ -31,7 +31,7 @@ SECRET_KEY ="django-insecure-7xo5(_qe*n99jv$pspm7n22izn4614hzbjytr(tm2t(veq*^7"
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['nexfiny.onrender.com']
 
 
 # Application definition
