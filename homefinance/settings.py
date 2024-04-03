@@ -28,6 +28,8 @@ load_dotenv()
 SECRET_KEY ="django-insecure-7xo5(_qe*n99jv$pspm7n22izn4614hzbjytr(tm2t(veq*^7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+
 DEBUG = True
 
 
