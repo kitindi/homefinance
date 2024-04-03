@@ -133,7 +133,7 @@ def dashboard_view(request):
                 
     
     balance = total_mothly_budget - total_expenses- savings_amount          
-    context = {"expenses":page_object,"labels":lables,"data":expenses_data,"expenses_data":mothly_expenses_bar,"savings_data":monthly_savings, "total_expenses":total_expenses,"total_budget":total_mothly_budget, 'balance':balance,"edu_percent":edu_percentage,'edu_budget':edu_budget,'gro_percentage':gro_percentage,'gro_budget':gro_budget,'trans_percent':trans_percentage,'trans_budget':trans_budget,'util_percentage':util_percentage,'util_budget':util_budget, 'fixed_percentage':fixed_percentage,'fixed_budget':fixed_budget, 'shop_percentage':shop_percentage,'shop_budget':shop_budget,}
+    context = {"expenses":page_object,"labels":lables,"data":expenses_data,"expenses_data":mothly_expenses_bar,"savings_data":monthly_savings, "total_expenses":total_expenses,"total_budget":total_mothly_budget, 'balance':balance,"edu_percent":edu_percentage,'edu_budget':edu_budget,'gro_percentage':gro_percentage,'gro_budget':gro_budget,'trans_percent':trans_percentage,'trans_budget':trans_budget,'util_percentage':util_percentage,'util_budget':util_budget, 'fixed_percentage':fixed_percentage,'fixed_budget':fixed_budget, 'shop_percentage':shop_percentage,'shop_budget':shop_budget, 'today':today}
     return render(request, 'main/dashboard.html', context)
 
 
@@ -243,7 +243,7 @@ def budget(request):
             show.append(budget)
                 
                 
-    context = {"budgets": show}
+    context = {"budgets": show, 'today':today}
     return render(request, 'main/budget.html', context)
 
 @login_required(login_url='login') 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main",
     "authentication",
+    "user_profile",
     "preferences",
     "tailwind",
     "theme",
@@ -144,8 +145,11 @@ STATIC_URL = "static/"
 STATICFILES_DIRS=[os.path.join(BASE_DIR, "static")]
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+# MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
 # Tailwind configuration
 
 
@@ -167,6 +171,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 
 AUTO_LOGOUT = {
-    'IDLE_TIME':3600,
+    'IDLE_TIME':600,
     'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
 }
